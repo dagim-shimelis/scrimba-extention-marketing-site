@@ -22,6 +22,7 @@ The site includes:
 
 - A responsive landing page with an illustrated progress badge.
 - A downloadable extension ZIP and an expandable installation guide.
+- A support page with installation help, troubleshooting, and issue reporting.
 - A privacy policy explaining the extension’s local data processing.
 - A maker section introducing Dagim and his other projects.
 
@@ -55,7 +56,8 @@ src/
 │   ├── page.tsx           # Landing page
 │   ├── layout.tsx         # Shared layout and metadata
 │   ├── globals.css        # Site styles
-│   └── privacy/page.tsx   # Privacy policy
+│   ├── privacy/page.tsx   # Privacy policy
+│   └── support/page.tsx   # Installation help and troubleshooting
 └── components/
     ├── site.tsx           # Header, footer, and extension links
     ├── maker-section.tsx  # About the maker

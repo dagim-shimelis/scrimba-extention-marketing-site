@@ -21,7 +21,7 @@ export function Header() {
       </Link>
       <nav aria-label="Main navigation">
         <Link href="/#maker">The maker</Link>
-        <Link href="/privacy">Privacy</Link>
+        <Link href="/support">Support</Link>
         <a
           href={repository}
           className="nav-github"
@@ -46,6 +46,7 @@ export function Footer() {
       <p>A little more clarity. A little more progress.</p>
       <div>
         <a href={repository}>Open source on GitHub ↗</a>
+        <Link href="/support">Support</Link>
         <Link href="/privacy">Privacy policy</Link>
         <a href="https://dagim.codes/">Made by Dagim ↗</a>
       </div>

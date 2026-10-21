@@ -518,6 +518,7 @@ h1 em {
 }
 .footer > div {
   display: flex;
+  flex-wrap: wrap;
   gap: 25px;
 }
 .footer small {
@@ -528,7 +529,7 @@ h1 em {
 .footer a:hover {
   text-decoration: underline;
 }
-.privacy {
+:is(.privacy, .support) {
   padding-top: 50px;
   padding-bottom: 85px;
   max-width: 880px;
@@ -539,7 +540,7 @@ h1 em {
   font-size: 13px;
   color: #d1dcf5;
 }
-.privacy h1 {
+:is(.privacy, .support) h1 {
   font-size: clamp(48px, 6vw, 76px);
 }
 .policy-date {
@@ -547,7 +548,7 @@ h1 em {
   font-size: 13px;
   margin: 25px 0 40px;
 }
-.privacy article {
+:is(.privacy, .support) article {
   background: var(--paper);
   color: #34443f;
   border-radius: 20px;
@@ -555,20 +556,20 @@ h1 em {
   line-height: 1.85;
   font-size: 15px;
 }
-.privacy article h2 {
+:is(.privacy, .support) article h2 {
   font-size: 23px;
   color: var(--ink);
   margin: 32px 0 12px;
   letter-spacing: -0.03em;
 }
-.privacy article p {
+:is(.privacy, .support) article p {
   margin-bottom: 16px;
 }
-.privacy article a {
+:is(.privacy, .support) article a {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.privacy code {
+:is(.privacy, .support) code {
   font-size: 13px;
   overflow-wrap: anywhere;
 }
@@ -750,17 +751,17 @@ h1 em {
   .footer > div {
     gap: 20px;
   }
-  .privacy {
+  :is(.privacy, .support) {
     padding-top: 30px;
   }
-  .privacy article {
+  :is(.privacy, .support) article {
     padding: 25px;
     font-size: 14px;
   }
-  .privacy h1 {
+  :is(.privacy, .support) h1 {
     font-size: 53px;
   }
-  .privacy article h2 {
+  :is(.privacy, .support) article h2 {
     font-size: 21px;
   }
 }
@@ -814,4 +815,20 @@ h1 em {
     animation: none !important;
     transition: none !important;
   }
+}
+
+.support-intro {
+  color: #cbd7f2;
+  margin: 25px 0 40px;
+  line-height: 1.7;
+}
+.support article h2:first-child {
+  margin-top: 0;
+}
+.support ol {
+  list-style: decimal;
+  padding-left: 22px;
+}
+.support li + li {
+  margin-top: 10px;
 }
