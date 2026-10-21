@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scrimba Section Progress — marketing site
 
-## Getting Started
+Next.js landing page and `/privacy` policy for the unofficial Scrimba Section Progress browser extension.
 
-First, run the development server:
+## Local development
 
-```bash
+```sh
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Checks and production preview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run lint
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The site uses local fonts and assets, without analytics or advertising. The maker section is adapted from the Sheriff website.
 
-## Learn More
+## Downloads and publishing
 
-To learn more about Next.js, take a look at the following resources:
+The download buttons serve `public/downloads/scrimba-section-progress-0.1.2.zip`, built from the companion extension repository. Installation instructions explain the manual Load unpacked flow. When a Chrome Web Store listing is available, update the calls to action in `src/components/site.tsx` and `src/app/page.tsx` to link to it and update the installation copy.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For a new extension release, rebuild its ZIP, replace the bundled download, and update `download` in `src/components/site.tsx`. Keep the policy in `src/app/privacy/page.tsx` synchronized with the extension's `PRIVACY.md`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deploy this repository to a Next.js-compatible host. Use the deployed `/privacy` URL in the Chrome Web Store dashboard after confirming it is publicly accessible. No deployment is configured by this implementation.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The hero badge is an illustrative example. The expandable installation guide includes an existing authentic extension capture; it is not evidence of fresh runtime testing. The extension icon is original artwork as confirmed by its owner. Fonts include their OFL license files under `public/fonts`.

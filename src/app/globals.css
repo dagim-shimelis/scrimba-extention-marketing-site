@@ -1,26 +1,815 @@
 @import "tailwindcss";
-
+@import "../components/maker.css";
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/dm-sans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif-italic.woff2") format("woff2");
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Mono";
+  src: url("/fonts/dm-mono.woff2") format("woff2");
+  font-display: swap;
+}
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f4f1e9;
+  --ink: #203c34;
+  --muted: #696c60;
+  --line: #d8d9ce;
+  --forest: #203c34;
+  --yellow: #f4d447;
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  color: #fff;
+  background: #17265a;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+a,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #e7c95c;
+  outline-offset: 6px;
+}
+p,
+h1,
+h2,
+figure {
+  margin: 0;
+}
+em {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.wrap {
+  width: min(1200px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.arrow {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s;
+}
+.eyebrow {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+}
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 20px;
+  z-index: 20;
+  background: #fff;
+  color: #17265a;
+  padding: 16px;
+}
+.skip-link:focus {
+  top: 10px;
+}
+.header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 104px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+}
+.brand img {
+  border-radius: 11px;
+}
+.brand-light {
+  font-weight: 400;
+}
+.brand-dot {
+  color: #b7f1c9;
+}
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 13px;
+}
+.header nav > a:not(.nav-download) {
+  color: #e2e8f8;
+}
+.nav-github {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #ffffff50;
+  border-radius: 30px;
+  background: #ffffff0c;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.nav-github svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.nav-github:hover {
+  background: #ffffff20;
+  border-color: #ffffff90;
+}
+.nav-download {
+  border: 1px solid #ffffff50;
+  border-radius: 30px;
+  padding: 12px 20px;
+  display: flex;
+  gap: 22px;
+}
+.nav-download:hover {
+  background: #ffffff18;
+}
+.hero {
+  position: relative;
+  padding: 54px 0 75px;
+  isolation: isolate;
+}
+.hero:before {
+  content: "";
+  position: absolute;
+  inset: -104px 0 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 6% 7%, #5eb29c 0, transparent 43%),
+    radial-gradient(ellipse at 91% 34%, #6739bc 0, transparent 49%),
+    radial-gradient(ellipse at 48% 35%, #3156c4 0, transparent 60%),
+    linear-gradient(145deg, #214959, #1c2f80 60%, #161f45);
+}
+.hero:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23n)' opacity='.35' d='M0 0h200v200H0z'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+/* Fade only the background layers, keeping content fully opaque. */
+.hero::before,
+.hero::after {
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 220px), transparent);
+}
+.hero-orbit {
+  position: absolute;
+  z-index: -1;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-18deg);
+  width: min(1000px, 90%);
+  height: min(420px, 38vw);
+  border: 1px solid #ffffff10;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-copy {
+  text-align: center;
+  animation: arrive 0.8s ease both;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #e4ecfc;
+}
+.hero-eyebrow > span {
+  width: 6px;
+  height: 6px;
+  background: #c7f8bf;
+  box-shadow: 0 0 16px #afffb9;
+  border-radius: 50%;
+}
+h1 {
+  font-size: clamp(56px, 7.6vw, 104px);
+  line-height: 1.02;
+  letter-spacing: -0.065em;
+  font-weight: 500;
+  margin: 27px 0 23px;
+}
+h1 em {
+  color: #d8f5dc;
+  letter-spacing: -0.045em;
+}
+.hero-description {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #e0e7f8;
+}
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding: 9px 9px 9px 19px;
+  min-height: 60px;
+  border: 1px solid #ffffffd9;
+  border-radius: 100px;
+  color: #263454;
+  background: linear-gradient(175deg, #fff 25%, #edf3f1);
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow:
+    0 0 0 5px #ffffff12,
+    inset 0 1px 0 #fff,
+    0 8px 24px #09153435;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.download-button .chrome-icon {
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+.install-label {
+  letter-spacing: -0.025em;
+}
+.install-arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 12px;
+  border-radius: 50%;
+  background: #e2e9e8;
+  color: #32485a;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.install-arrow svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s;
+}
+.download-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 6px #ffffff1c,
+    inset 0 1px 0 #fff,
+    0 12px 30px #09153445;
+}
+.download-button:hover .install-arrow {
+  background: #263e58;
+  color: #fff;
+}
+.download-button:hover .install-arrow svg {
+  transform: translateX(2px);
+}
+.download-button:active {
+  transform: translateY(1px);
+}
+.download-note {
+  margin-top: 16px;
+  font-size: 11px;
+  color: #e0e6fa;
+}
+.download-note a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.demo {
+  margin-top: 64px;
+  max-width: 1040px;
+  animation: arrive 1s 0.1s both;
+}
+.demo-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 5px 14px;
+  font-size: 12px;
+  color: #e4e9fd;
+}
+.demo-caption > span:first-child {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.demo-caption > span:last-child > span {
+  font-size: 24px;
+  margin-left: 10px;
+}
+.lesson-demo {
+  border: 1px solid #c2baff45;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111721;
+  box-shadow:
+    0 25px 70px #060b303d,
+    0 0 0 7px #ffffff06;
+}
+.lesson-top {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  background: #141923;
+  padding: 21px 24px;
+  border-bottom: 1px solid #ffffff0c;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.lesson-crumb {
+  color: #c4c9db;
+  flex: 1;
+}
+.lesson-crumb > span {
+  color: #676c7c;
+  margin: 0 10px;
+}
+.lesson-clock {
+  color: #bdc2d5;
+  padding: 4px 7px;
+  border: 1px solid #454956;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.progress-demo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.progress-demo strong {
+  color: #f4d447;
+}
+.progress-track {
+  width: 78px;
+  height: 5px;
+  background: #424e65;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.progress-track > span {
+  display: block;
+  width: 24%;
+  height: 100%;
+  background: #f4d447;
+  border-radius: 8px;
+}
+.time-estimate {
+  color: #aabbd0;
+}
+.lesson-check {
+  background: #69cea0;
+  color: #10231e;
+  border-radius: 6px;
+  padding: 0 5px;
+  font-size: 19px;
+}
+.lesson-body {
+  position: relative;
+  display: flex;
+  gap: 22px;
+  padding: 28px;
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+  line-height: 2.1;
+  color: #e0e6f6;
+}
+.code-decoration {
+  color: #5b6679;
+}
+.code-comment {
+  color: #8490a4;
+}
+.code-purple {
+  color: #baa5f1;
+}
+.code-green {
+  color: #9fddc1;
+}
+.progress-callout {
+  margin-left: auto;
+  padding: 0 15px;
+  color: #dce8cf;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  transform: rotate(-4deg);
+}
+.progress-callout > span {
+  display: block;
+  font-size: 25px;
+}
+.progress-callout em {
+  font-size: 24px;
+}
+.feature-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 27px 3px 0;
+  font-size: 11px;
+  color: #edf0fc;
+}
+.feature-line b {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  margin-right: 10px;
+  color: #acbee5;
+  font-weight: 400;
+}
+.install {
+  max-width: 700px;
+  margin: 32px auto 0;
+  font-size: 13px;
+  color: #e1e8f9;
+  scroll-margin-top: 25px;
+}
+.install summary {
+  list-style: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 8px;
+}
+.install summary::-webkit-details-marker {
+  display: none;
+}
+.install summary span {
+  margin-left: 12px;
+}
+.install ol {
+  line-height: 2;
+  padding-left: 22px;
+  margin: 20px 0;
+}
+.install p {
+  font-size: 12px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.install img {
+  border-radius: 10px;
+}
+.install code {
+  color: white;
+}
+.maker-area {
+  padding: 80px 0 70px;
+  color: var(--ink);
+}
+.maker-section {
+  margin-bottom: 0;
+  padding: 52px;
+  gap: 40px;
+}
+.maker-copy h2 {
+  font-size: clamp(42px, 4.7vw, 65px);
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+}
+.maker-story {
+  font-size: 15px;
+  gap: 18px;
+  line-height: 1.8;
+}
+.maker-projects figcaption {
+  font-size: 23px;
+}
+.footer {
+  padding-block: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 22px;
+  font-size: 12px;
+  color: #c8d2ea;
+}
+.footer > div {
+  display: flex;
+  gap: 25px;
+}
+.footer small {
+  width: 100%;
+  font-size: 10px;
+  color: #bac6df;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.privacy {
+  padding-top: 50px;
+  padding-bottom: 85px;
+  max-width: 880px;
+}
+.back-link {
+  display: inline-block;
+  margin-bottom: 45px;
+  font-size: 13px;
+  color: #d1dcf5;
+}
+.privacy h1 {
+  font-size: clamp(48px, 6vw, 76px);
+}
+.policy-date {
+  color: #cbd7f2;
+  font-size: 13px;
+  margin: 25px 0 40px;
+}
+.privacy article {
+  background: var(--paper);
+  color: #34443f;
+  border-radius: 20px;
+  padding: 45px;
+  line-height: 1.85;
+  font-size: 15px;
+}
+.privacy article h2 {
+  font-size: 23px;
+  color: var(--ink);
+  margin: 32px 0 12px;
+  letter-spacing: -0.03em;
+}
+.privacy article p {
+  margin-bottom: 16px;
+}
+.privacy article a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.privacy code {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (min-width: 1500px) {
+  .hero {
+    padding-top: 80px;
+  }
+  .demo {
+    margin-top: 78px;
+  }
+}
+@media (max-width: 900px) {
+  .wrap {
+    width: calc(100% - 48px);
+  }
+  .header nav {
+    gap: 20px;
+  }
+  .maker-section {
+    padding: 36px;
+    gap: 26px;
+  }
+  .maker-story {
+    font-size: 14px;
+  }
+  .maker-app-name {
+    font-size: 21px;
+  }
+  .maker-app-detail {
+    font-size: 10px;
+  }
+  .lesson-crumb {
+    flex-basis: 100%;
+  }
+  .lesson-body {
+    font-size: 11px;
+  }
+  .progress-callout {
+    padding: 0;
+  }
+  .feature-line {
+    font-size: 10px;
+  }
+  .feature-line b {
+    margin-right: 5px;
+  }
+}
+@media (max-width: 700px) {
+  .wrap {
+    width: calc(100% - 36px);
+  }
+  .header {
+    height: 82px;
+  }
+  .brand {
+    font-size: 16px;
+    gap: 8px;
+  }
+  .brand img {
+    width: 30px;
+    height: 30px;
+  }
+  .header nav {
+    gap: 15px;
+    font-size: 12px;
+  }
+  .nav-github {
+    width: 44px;
+    padding: 10px;
+  }
+  .nav-github span {
+    display: none;
+  }
+  .header nav > a:first-child,
+  .nav-download {
+    display: none;
+  }
+  .hero {
+    padding-top: 35px;
+    padding-bottom: 45px;
+  }
+  .hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+  h1 {
+    font-size: clamp(54px, 12vw, 78px);
+  }
+  .hero-description {
+    font-size: 15px;
+    max-width: 360px;
+    margin: auto;
+  }
+  .desktop-break {
+    display: none;
+  }
+  .demo {
+    margin-top: 45px;
+  }
+  .demo-caption > span:first-child {
+    font-size: 9px;
+  }
+  .demo-caption > span:last-child {
+    font-size: 10px;
+  }
+  .demo-caption > span:last-child > span {
+    display: none;
+  }
+  .lesson-top {
+    padding: 17px;
+    gap: 12px;
+    font-size: 11px;
+  }
+  .progress-track {
+    width: 48px;
+  }
+  .time-estimate {
+    font-size: 10px;
+  }
+  .lesson-check {
+    display: none;
+  }
+  .lesson-body {
+    font-size: 10px;
+    padding: 20px 14px;
+    gap: 10px;
+  }
+  .progress-callout {
+    display: none;
+  }
+  .feature-line {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    font-size: 12px;
+  }
+  .maker-area {
+    padding: 35px 0 40px;
+  }
+  .maker-section {
+    grid-template-columns: 1fr;
+    padding: 30px 24px;
+    gap: 24px;
+  }
+  .maker-copy h2 {
+    font-size: 48px;
+  }
+  .maker-story {
+    font-size: 15px;
+  }
+  .maker-apps {
+    max-width: 380px;
+  }
+  .maker-app-name {
+    font-size: 24px;
+  }
+  .maker-app-detail {
+    font-size: 11px;
+  }
+  .maker-projects figcaption {
+    font-size: 23px;
+    margin-top: 20px;
+  }
+  .footer {
+    font-size: 11px;
+    gap: 18px;
+  }
+  .footer > div {
+    gap: 20px;
+  }
+  .privacy {
+    padding-top: 30px;
+  }
+  .privacy article {
+    padding: 25px;
+    font-size: 14px;
+  }
+  .privacy h1 {
+    font-size: 53px;
+  }
+  .privacy article h2 {
+    font-size: 21px;
+  }
+}
+@media (max-width: 370px) {
+  .brand {
+    font-size: 14px;
+  }
+  .hero-eyebrow {
+    font-size: 8px;
+  }
+  .lesson-top {
+    padding: 13px;
+    gap: 10px;
+  }
+  .progress-demo {
+    gap: 6px;
+  }
+  .time-estimate {
+    font-size: 9px;
+  }
+  .lesson-clock {
+    font-size: 10px;
+  }
+  .progress-track {
+    width: 32px;
+  }
+  .lesson-body {
+    font-size: 8px;
+  }
+  .maker-section {
+    padding: 25px 20px;
+  }
+  .maker-app-name {
+    font-size: 20px;
+  }
+  .maker-app-detail {
+    font-size: 9px;
+  }
+  .demo-caption > span:last-child {
+    max-width: 110px;
+    text-align: right;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
