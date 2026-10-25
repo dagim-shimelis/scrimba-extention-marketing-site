@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { MakerSection } from "@/components/maker-section";
-import { download, repository } from "@/components/site";
+import { chromeWebStore, download, repository } from "@/components/site";
 
 export default function Home() {
   return (
@@ -21,7 +21,7 @@ export default function Home() {
             <br className="desktop-break" /> Your Scrimba section progress,
             beside the lesson timer.
           </p>
-          <a href={download} download className="download-button">
+          <a href={chromeWebStore} className="download-button">
             <svg className="chrome-icon" viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="12" r="10" fill="#ea4335" />
               <path
@@ -119,7 +119,9 @@ export default function Home() {
               New here? Here’s how to install <span aria-hidden="true">+</span>
             </summary>
             <ol>
-              <li>Download the ZIP above and extract it.</li>
+              <li>
+                <a href={download} download>Download the ZIP</a> and extract it.
+              </li>
               <li>
                 Open <code>chrome://extensions</code> and turn on Developer
                 mode.

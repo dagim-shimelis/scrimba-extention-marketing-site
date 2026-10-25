@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const download = "/downloads/scrimba-section-progress-0.1.2.zip";
+export const chromeWebStore =
+  "https://chromewebstore.google.com/detail/nihjjjbhpjpajidfabhdkcinogfogbgn?utm_source=item-share-cb";
 export const repository =
   "https://github.com/dagim-shimelis/Scrimba-section-progress-extention";
 
@@ -32,7 +34,7 @@ export function Header() {
           </svg>
           <span>GitHub</span>
         </a>
-        <a href={download} download className="nav-download">
+        <a href={chromeWebStore} className="nav-download">
           Install extension <span aria-hidden="true">↗</span>
         </a>
       </nav>
