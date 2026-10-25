@@ -17,7 +17,7 @@ export default function Privacy() {
         <br />
         <em>Clear privacy.</em>
       </h1>
-      <p className="policy-date">Privacy policy · Effective October 21, 2026</p>
+      <p className="policy-date">Privacy policy · Effective October 25, 2026</p>
       <article>
         <p>
           Scrimba Section Progress is an independent browser extension
@@ -40,10 +40,17 @@ export default function Privacy() {
           storage, browser extension storage, or a database.
         </p>
         <p>
-          The extension does not send data to the developer or any third party,
+          The extension does not send lesson or section data to the developer or any third party,
           sell data, include analytics or advertising, or load remote code. It
           does not access passwords, authentication cookies, or payment
           information. No separate extension account is required.
+        </p>
+        <p>
+          On a fresh install, the extension opens this website once in a new
+          tab. It does not attach lesson data or tracking parameters to the URL.
+          Updates, extension reloads, and browser restarts do not reopen the
+          site. This visit makes normal website requests, as described under
+          &ldquo;This website&rdquo; below.
         </p>
         <p>
           The extension may briefly open the lesson outline to read section
